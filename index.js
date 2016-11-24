@@ -1,5 +1,6 @@
 "use strict";
-
+var express = require('express');
+var app = express();
 var token = process.env.SLACK_BOT_TOKEN || '';
 var channelName = 'nyc-office';
 var sucker = 'drewpnyc';
@@ -83,4 +84,6 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, function (rtmStartData) {
 
 });
 
-rtm.start();
+app.listen(process.env.PORT, function() {
+    rtm.start();
+});
