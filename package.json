@@ -1,0 +1,27 @@
+{
+  "name": "drewpizza",
+  "version": "1.0.0",
+  "description": "A Slack app that tells Drew to buy us pizza.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shaunpersad/drewpizza.git"
+  },
+  "keywords": [
+    "drew",
+    "buys",
+    "pizza"
+  ],
+  "author": "Shaun Persad <shaunpersad@gmail.com> (http://inspirationjs.io)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shaunpersad/drewpizza/issues"
+  },
+  "homepage": "https://github.com/shaunpersad/drewpizza#readme",
+  "dependencies": {
+    "@slack/client": "^3.6.1"
+  }
+}
