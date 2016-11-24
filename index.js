@@ -84,6 +84,10 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, function (rtmStartData) {
 
 });
 
+app.get('/', function (req, res) {
+    res.send('Drew. Pizza. Bot.');
+});
+
 app.listen(process.env.PORT, function() {
     rtm.start();
 });
