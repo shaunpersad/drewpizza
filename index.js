@@ -40,7 +40,7 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, function (rtmStartData) {
 
         if (pizzaCounter === 15) {
 
-            rtm.sendMessage(`<@channel>, you guys need to calm down RIGHT NOW.`, channelId);
+            rtm.sendMessage(`OK, you guys need to calm down RIGHT NOW.`, channelId);
 
         } else if (pizzaCounter === 10) {
 
