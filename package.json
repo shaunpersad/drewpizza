@@ -4,7 +4,8 @@
   "description": "A Slack app that tells Drew to buy us pizza.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -23,5 +24,8 @@
   "homepage": "https://github.com/shaunpersad/drewpizza#readme",
   "dependencies": {
     "@slack/client": "^3.6.1"
+  },
+  "engines": {
+    "node": "4.0.0"
   }
 }
