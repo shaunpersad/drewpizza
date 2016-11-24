@@ -11,10 +11,10 @@ var RTM_EVENTS = require('@slack/client').RTM_EVENTS;
 
 var rtm = new RtmClient(token);
 
-rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, function (rtmStartData) {
+var currentlyTrackingDate = null;
+var pizzaCounter = 0;
 
-    var currentlyTrackingDate = null;
-    var pizzaCounter = 0;
+rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, function (rtmStartData) {
 
     var channels = rtmStartData.channels || [];
     var channelId = null;
