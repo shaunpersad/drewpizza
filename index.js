@@ -2,8 +2,8 @@
 
 var token = process.env.SLACK_BOT_TOKEN || '';
 var channelName = 'nyc-office';
-var sucker = 'drewpnyc';
-var suckerName = 'Drew';
+var sucker = 'shaun.persad';
+var suckerName = 'Shaun';
 
 var RtmClient = require('@slack/client').RtmClient;
 var CLIENT_EVENTS = require('@slack/client').CLIENT_EVENTS;
