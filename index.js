@@ -38,15 +38,15 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, function (rtmStartData) {
 
         pizzaCounter++;
 
-        if (pizzaCounter >= 15) {
+        if (pizzaCounter === 15) {
 
             rtm.sendMessage(`<@channel>, you guys need to calm down RIGHT NOW.`, channelId);
 
-        } else if (pizzaCounter >= 10) {
+        } else if (pizzaCounter === 10) {
 
             rtm.sendMessage(`<@${sucker}|${suckerName}>, I hope you ordered that pizza.`, channelId);
 
-        } else if (pizzaCounter >= 5) {
+        } else if (pizzaCounter === 5) {
 
             rtm.sendMessage(`<@${sucker}|${suckerName}>, pizza?`, channelId);
         }
