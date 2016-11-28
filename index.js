@@ -56,16 +56,31 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, function (rtmStartData) {
 
     rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(message) {
 
-        console.log(message);
-        if (message.channel === channelId &&
+        if (
+            message.channel === channelId &&
             message.type === 'message' &&
-            !message.subtype) {
+            !message.subtype
+        ) {
 
             var text = message.text || '';
 
             if (text.indexOf(':pizza:') !== -1) {
 
                 logPizza();
+            }
+        } else if (
+            message.channel === channelId &&
+            message.type === 'message' &&
+            message.subtype === 'message_deleted' &&
+            message.previous_message
+        ) {
+
+            var text = message.previous_message.text || '';
+
+            if (text.indexOf(':pizza:') !== -1) {
+
+                pizzaCounter--;
+                console.log('removed pizza:', pizzaCounter);
             }
         }
     });
@@ -94,6 +109,7 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, function (rtmStartData) {
             if (reaction === 'pizza') {
 
                 pizzaCounter--;
+                console.log('removed pizza:', pizzaCounter);
             }
         }
     });
