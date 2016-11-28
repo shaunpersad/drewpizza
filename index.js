@@ -56,6 +56,7 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, function (rtmStartData) {
 
     rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(message) {
 
+        console.log(message);
         if (message.channel === channelId &&
             message.type === 'message' &&
             !message.subtype) {
