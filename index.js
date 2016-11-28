@@ -14,6 +14,9 @@ var rtm = new RtmClient(token);
 
 var currentlyTrackingDate = null;
 var pizzaCounter = 0;
+var sentFirst = false;
+var sentSecond = false;
+var sentThird = false;
 
 rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, function (rtmStartData) {
 
@@ -34,21 +37,27 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, function (rtmStartData) {
         if (date !== currentlyTrackingDate) {
             currentlyTrackingDate = date;
             pizzaCounter = 0;
+            sentFirst = false;
+            sentSecond = false;
+            sentThird = false;
         }
 
         pizzaCounter++;
 
-        if (pizzaCounter === 15) {
+        if (pizzaCounter >= 15 && !sentThird) {
 
             rtm.sendMessage(`OK, you guys need to calm down RIGHT NOW.`, channelId);
+            sentThird = true;
 
-        } else if (pizzaCounter === 10) {
+        } else if (pizzaCounter >= 10 && !sentSecond) {
 
             rtm.sendMessage(`<@${sucker}|${suckerName}>, I hope you ordered that pizza.`, channelId);
+            sentSecond = true;
 
-        } else if (pizzaCounter === 5) {
+        } else if (pizzaCounter >= 5 && !sentFirst) {
 
             rtm.sendMessage(`<@${sucker}|${suckerName}>, pizza?`, channelId);
+            sentFirst = true;
         }
         console.log('pizza logged:', pizzaCounter);
     };
@@ -56,13 +65,14 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, function (rtmStartData) {
 
     rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(message) {
 
+        var text;
         if (
             message.channel === channelId &&
             message.type === 'message' &&
             !message.subtype
         ) {
 
-            var text = message.text || '';
+            text = message.text || '';
 
             if (text.indexOf(':pizza:') !== -1) {
 
@@ -75,7 +85,7 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, function (rtmStartData) {
             message.previous_message
         ) {
 
-            var text = message.previous_message.text || '';
+            text = message.previous_message.text || '';
 
             if (text.indexOf(':pizza:') !== -1) {
 
