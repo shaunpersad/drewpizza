@@ -50,7 +50,7 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, function (rtmStartData) {
 
             rtm.sendMessage(`<@${sucker}|${suckerName}>, pizza?`, channelId);
         }
-        console.log('pizza logged.');
+        console.log('pizza logged:', pizzaCounter);
     };
 
 
@@ -79,6 +79,21 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, function (rtmStartData) {
             if (reaction === 'pizza') {
 
                 logPizza();
+            }
+        }
+    });
+
+    rtm.on(RTM_EVENTS.REACTION_REMOVED, function handleRtmReaction(message) {
+
+        console.log(message);
+        if (message.item.channel === channelId &&
+            message.type === 'reaction_removed') {
+
+            var reaction = message.reaction || '';
+
+            if (reaction === 'pizza') {
+
+                pizzaCounter--;
             }
         }
     });
