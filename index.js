@@ -85,7 +85,6 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, function (rtmStartData) {
 
     rtm.on(RTM_EVENTS.REACTION_REMOVED, function handleRtmReaction(message) {
 
-        console.log(message);
         if (message.item.channel === channelId &&
             message.type === 'reaction_removed') {
 
