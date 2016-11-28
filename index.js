@@ -14,9 +14,15 @@ var rtm = new RtmClient(token);
 
 var currentlyTrackingDate = null;
 var pizzaCounter = 0;
+
+var firstThreshold = 5;
+var secondThreshold = 10;
+var thirdThreshold = 15;
+
 var sentFirst = false;
 var sentSecond = false;
 var sentThird = false;
+
 var firstResponses = [
     'pizza?',
     'is today pizza day?',
@@ -74,19 +80,19 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, function (rtmStartData) {
 
         pizzaCounter++;
 
-        if (pizzaCounter >= 3 && !sentThird) {
+        if (pizzaCounter >= thirdThreshold && !sentThird) {
 
             thirdResponse = getRandomResponse(thirdResponses, thirdResponse);
             rtm.sendMessage(thirdResponse, channelId);
             sentThird = true;
 
-        } else if (pizzaCounter >= 2 && !sentSecond) {
+        } else if (pizzaCounter >= secondThreshold && !sentSecond) {
 
             secondResponse = getRandomResponse(secondResponses, secondResponse);
             rtm.sendMessage(`<@${sucker}|${suckerName}>, ${secondResponse}`, channelId);
             sentSecond = true;
 
-        } else if (pizzaCounter >= 1 && !sentFirst) {
+        } else if (pizzaCounter >= firstThreshold && !sentFirst) {
 
             firstResponse = getRandomResponse(firstResponses, firstResponse);
             rtm.sendMessage(`<@${sucker}|${suckerName}>, ${firstResponse}`, channelId);
