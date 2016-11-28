@@ -5,6 +5,8 @@ var token = process.env.SLACK_BOT_TOKEN || '';
 var channelName = 'nyc-office';
 var sucker = 'drewpnyc';
 var suckerName = 'Drew';
+var sucker = 'shaun.persad';
+var suckerName = 'Shaun';
 
 var RtmClient = require('@slack/client').RtmClient;
 var CLIENT_EVENTS = require('@slack/client').CLIENT_EVENTS;
@@ -17,6 +19,36 @@ var pizzaCounter = 0;
 var sentFirst = false;
 var sentSecond = false;
 var sentThird = false;
+var firstResponses = [
+    'pizza?',
+    'is today pizza day?',
+    'you are the pizza hero we deserve.',
+    'the pizza whistle has blown.'
+];
+var firstResponse = firstResponses[0];
+var secondResponses = [
+    'I hope you ordered that pizza.',
+    'the little kiddies are getting impatient.',
+    "don't come back here without pizza.",
+    'the next time I see your face, there better be pizza near it.'
+];
+var secondResponse = secondResponses[0];
+var thirdResponses = [
+    'OMG, you pizza fiends.',
+    "He's just one man!",
+    'OK, you guys need to calm down RIGHT NOW.',
+    "Don't you guys have work to do?"
+];
+var thirdResponse = thirdResponses[0];
+
+function getRandomResponse(responses, lastResponse) {
+
+    var response = responses[Math.floor(Math.random()*responses.length)];
+    if (response === lastResponse) {
+       return getRandomResponse(responses, lastResponse);
+    }
+    return response;
+}
 
 rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, function (rtmStartData) {
 
@@ -44,19 +76,22 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, function (rtmStartData) {
 
         pizzaCounter++;
 
-        if (pizzaCounter >= 15 && !sentThird) {
+        if (pizzaCounter >= 3 && !sentThird) {
 
-            rtm.sendMessage(`OK, you guys need to calm down RIGHT NOW.`, channelId);
+            thirdResponse = getRandomResponse(thirdResponses, thirdResponse);
+            rtm.sendMessage(thirdResponse, channelId);
             sentThird = true;
 
-        } else if (pizzaCounter >= 10 && !sentSecond) {
+        } else if (pizzaCounter >= 2 && !sentSecond) {
 
-            rtm.sendMessage(`<@${sucker}|${suckerName}>, I hope you ordered that pizza.`, channelId);
+            secondResponse = getRandomResponse(secondResponses, secondResponse);
+            rtm.sendMessage(`<@${sucker}|${suckerName}>, ${secondResponse}`, channelId);
             sentSecond = true;
 
-        } else if (pizzaCounter >= 5 && !sentFirst) {
+        } else if (pizzaCounter >= 1 && !sentFirst) {
 
-            rtm.sendMessage(`<@${sucker}|${suckerName}>, pizza?`, channelId);
+            firstResponse = getRandomResponse(firstResponses, firstResponse);
+            rtm.sendMessage(`<@${sucker}|${suckerName}>, ${firstResponse}`, channelId);
             sentFirst = true;
         }
         console.log('pizza logged:', pizzaCounter);
