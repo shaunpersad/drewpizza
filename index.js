@@ -35,7 +35,7 @@ var secondResponses = [
 var secondResponse = secondResponses[0];
 var thirdResponses = [
     'OMG, you pizza fiends.',
-    "He's just one man!",
+    `${suckerName}'s just one man!`,
     'OK, you guys need to calm down RIGHT NOW.',
     "Don't you guys have work to do?"
 ];
