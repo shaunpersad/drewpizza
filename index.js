@@ -50,6 +50,7 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, function (rtmStartData) {
 
             rtm.sendMessage(`<@${sucker}|${suckerName}>, pizza?`, channelId);
         }
+        console.log('pizza logged.');
     };
 
 
