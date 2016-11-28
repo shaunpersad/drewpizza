@@ -104,6 +104,7 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, function (rtmStartData) {
 
     rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(message) {
 
+        console.log(message);
         var text;
         if (
             message.channel === channelId &&
