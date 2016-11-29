@@ -27,21 +27,24 @@ var firstResponses = [
     'pizza?',
     'is today pizza day?',
     'you are the pizza hero we deserve.',
-    'the pizza whistle has blown.'
+    'the pizza whistle has blown.',
+    'office trip to Chuck E. Cheese?'
 ];
 var firstResponse = firstResponses[0];
 var secondResponses = [
     'I hope you ordered that pizza.',
-    'the little kiddies are getting impatient.',
+    "if you ordered it already, thanks!. If you haven't, heaven help you.",
     "don't come back here without pizza.",
     'the next time I see your face, there better be pizza near it.'
 ];
 var secondResponse = secondResponses[0];
 var thirdResponses = [
-    'OMG, you pizza fiends.',
+    'OMG, STAHP.',
     `${suckerName}'s just one man!`,
     'OK, you guys need to calm down RIGHT NOW.',
-    "Don't you guys have work to do?"
+    "No one likes my jokes about about pizza. They're too cheesy.",
+    'Pineapple is a perfectly acceptable pizza topping.',
+    'In high school, Drew was known as Drew "Pizza Face" Papadeas.'
 ];
 var thirdResponse = thirdResponses[0];
 
