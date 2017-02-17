@@ -2,7 +2,7 @@
 var express = require('express');
 var app = express();
 var token = process.env.SLACK_BOT_TOKEN || '';
-var channelName = 'nyc-office';
+var channelName = 'office_nyc';
 var sucker = 'drewpnyc';
 var suckerName = 'Drew';
 
@@ -58,7 +58,7 @@ function getRandomResponse(responses, lastResponse) {
 }
 
 rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, function (rtmStartData) {
-
+    
     var channels = rtmStartData.channels || [];
     var channelId = null;
     
@@ -137,7 +137,7 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, function (rtmStartData) {
         }
     });
 
-    rtm.on(RTM_EVENTS.REACTION_ADDED, function handleRtmReaction(message) {
+    rtm.on(RTM_EVENTS.REACTION_ADDED, function handleRtmReactionAdded(message) {
 
         if (message.item.channel === channelId &&
             message.type === 'reaction_added') {
@@ -151,7 +151,7 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, function (rtmStartData) {
         }
     });
 
-    rtm.on(RTM_EVENTS.REACTION_REMOVED, function handleRtmReaction(message) {
+    rtm.on(RTM_EVENTS.REACTION_REMOVED, function handleRtmReactionRemoved(message) {
 
         if (message.item.channel === channelId &&
             message.type === 'reaction_removed') {
