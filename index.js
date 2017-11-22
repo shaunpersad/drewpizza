@@ -1,10 +1,21 @@
 "use strict";
+function getEnvVar(envVarName, optionalDefault) {
+    var value = process.env[envVarName] || optionalDefault;
+    if (value === undefined && arguments.length < 2) {
+        throw new Error(`Environment Variable undefined with no default set: ${envVarName}`);
+    }
+    return value;
+}
+
 var express = require('express');
 var app = express();
-var token = process.env.SLACK_BOT_TOKEN || '';
-var channelName = 'office_nyc';
-var sucker = 'drewpnyc';
-var suckerName = 'Drew';
+var token = getEnvVar('SLACK_BOT_TOKEN');
+var channelName = getEnvVar('SLACK_CHANNEL_NAME');
+var sucker = getEnvVar('SUCKER_USERNAME');
+var suckerFirstName = getEnvVar('SUCKER_FIRST_NAME');
+var suckerLastName = getEnvVar('SUCKER_LAST_NAME');
+var suckerUserId = getEnvVar('SUCKER_USERID');
+var suckerRef = `<@${suckerUserId}>`;
 
 var RtmClient = require('@slack/client').RtmClient;
 var CLIENT_EVENTS = require('@slack/client').CLIENT_EVENTS;
@@ -40,11 +51,11 @@ var secondResponses = [
 var secondResponse = secondResponses[0];
 var thirdResponses = [
     'OMG, STAHP.',
-    `${suckerName}'s just one man!`,
+    `${suckerFirstName}'s just one man!`,
     'OK, you guys need to calm down RIGHT NOW.',
     "No one likes my jokes about about pizza. They're too cheesy.",
     'Pineapple is a perfectly acceptable pizza topping.',
-    'In high school, Drew was known as Drew "Pizza Face" Papadeas.'
+    `In high school, ${suckerFirstName} was known as ${suckerFirstName} "Pizza Face" ${suckerLastName}.`
 ];
 var thirdResponse = thirdResponses[0];
 
@@ -58,10 +69,10 @@ function getRandomResponse(responses, lastResponse) {
 }
 
 rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, function (rtmStartData) {
-    
+
     var channels = rtmStartData.channels || [];
     var channelId = null;
-    
+
     channels.forEach(function(channel) {
         if (channel.name === channelName) {
             channelId = channel.id;
@@ -92,13 +103,13 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, function (rtmStartData) {
         } else if (pizzaCounter >= secondThreshold && !sentSecond) {
 
             secondResponse = getRandomResponse(secondResponses, secondResponse);
-            rtm.sendMessage(`<@${sucker}|${suckerName}>, ${secondResponse}`, channelId);
+            rtm.sendMessage(`${suckerRef}, ${secondResponse}`, channelId);
             sentSecond = true;
 
         } else if (pizzaCounter >= firstThreshold && !sentFirst) {
 
             firstResponse = getRandomResponse(firstResponses, firstResponse);
-            rtm.sendMessage(`<@${sucker}|${suckerName}>, ${firstResponse}`, channelId);
+            rtm.sendMessage(`${suckerRef}, ${firstResponse}`, channelId);
             sentFirst = true;
         }
         console.log('pizza logged:', pizzaCounter);
@@ -169,7 +180,7 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, function (rtmStartData) {
 });
 
 app.get('/', function (req, res) {
-    res.send('Drew. Pizza. Bot.');
+    res.send(`${suckerFirstName}. Pizza. Bot.`);
 });
 
 app.listen(process.env.PORT, function() {
