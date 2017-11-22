@@ -1,7 +1,8 @@
 FROM node:boron
 
-# port
-# EXPOSE 3000
+EXPOSE 3000
+
+ENV PORT=3000
 
 # initial set up
 WORKDIR /usr/src/app
